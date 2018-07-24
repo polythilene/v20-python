@@ -1,3 +1,4 @@
+import os
 import requests
 from v20 import account
 from v20 import order
@@ -106,6 +107,14 @@ class Context(object):
         # The session used for communicating with the REST server
         #
         self._session = requests.Session()
+
+        # add proxy capability (if needed)
+        if 'SENTINEL_ENABLE_PROXY' in os.environ and 'SENTINEL_PROXY_HOST' in os.environ and 'SENTINEL_PROXY_PORT' in os.environ:
+            self._session.proxies = {}
+            self._session.proxies['http'] = 'socks5h://%s:%s' % (os.environ['SENTINEL_PROXY_HOST'], os.environ['SENTINEL_PROXY_PORT'])
+            self._session.proxies['https'] = 'socks5h://%s:%s' % (os.environ['SENTINEL_PROXY_HOST'], os.environ['SENTINEL_PROXY_PORT'])
+        else:
+            self._session.proxies = {}
 
         #
         # Flag that controls whether the string representation of floats
