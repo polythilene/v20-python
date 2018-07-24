@@ -109,10 +109,10 @@ class Context(object):
         self._session = requests.Session()
 
         # add proxy capability (if needed)
-        if 'SENTINEL_ENABLE_PROXY' in os.environ and 'SENTINEL_PROXY_HOST' in os.environ and 'SENTINEL_PROXY_PORT' in os.environ:
+        if 'OANDA_ENABLE_PROXY' in os.environ and os.environ['OANDA_ENABLE_PROXY'] = '1' and 'OANDA_PROXY_HOST' in os.environ and 'OANDA_PROXY_PORT' in os.environ:
             self._session.proxies = {}
-            self._session.proxies['http'] = 'socks5h://%s:%s' % (os.environ['SENTINEL_PROXY_HOST'], os.environ['SENTINEL_PROXY_PORT'])
-            self._session.proxies['https'] = 'socks5h://%s:%s' % (os.environ['SENTINEL_PROXY_HOST'], os.environ['SENTINEL_PROXY_PORT'])
+            self._session.proxies['http'] = 'socks5h://%s:%s' % (os.environ['OANDA_PROXY_HOST'], os.environ['OANDA_PROXY_PORT'])
+            self._session.proxies['https'] = 'socks5h://%s:%s' % (os.environ['OANDA_PROXY_HOST'], os.environ['OANDA_PROXY_PORT'])
         else:
             self._session.proxies = {}
 
